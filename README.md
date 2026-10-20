@@ -1,6 +1,6 @@
 # BankFlow Lakehouse
 
-![CI](https://github.com/YOUR-USERNAME/bankflow-lakehouse/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Datamathican/bankflow-lakehouse/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![dbt](https://img.shields.io/badge/dbt-duckdb-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
