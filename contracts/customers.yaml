@@ -1,0 +1,13 @@
+dataset: customers
+owner: customer-data-platform
+version: 1.0.0
+pii_columns: [full_name, email, date_of_birth]   # must never reach the gold layer in clear text
+columns:
+  customer_id: {required: true}
+  full_name: {required: true}
+  email: {required: true}
+  date_of_birth: {required: true}
+  segment: {required: true}
+  city: {required: true}
+  created_at: {required: true}
+  ingested_at: {required: true}

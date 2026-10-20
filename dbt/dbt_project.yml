@@ -1,0 +1,29 @@
+name: bankflow
+version: "1.0.0"
+config-version: 2
+profile: bankflow
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+vars:
+  velocity_window_minutes: 10
+  velocity_threshold: 5
+  amount_zscore_threshold: 4
+  geo_hop_minutes: 60
+  alert_score_threshold: 35
+
+models:
+  bankflow:
+    silver:
+      +schema: silver
+      +materialized: table
+    gold:
+      +schema: gold
+      +materialized: table
+
+seeds:
+  bankflow:
+    +schema: reference

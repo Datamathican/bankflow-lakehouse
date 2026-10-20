@@ -1,0 +1,16 @@
+# Data contract: raw transactions feed (producer: core-banking card switch)
+dataset: transactions
+owner: payments-data-engineering
+version: 1.0.0
+freshness_sla_hours: 24
+columns:
+  txn_id: {required: true, description: Globally unique transaction id}
+  account_id: {required: true, description: Foreign key to accounts}
+  txn_ts: {required: true, description: Event time, ISO-8601}
+  amount: {required: true, description: Absolute amount in original currency}
+  currency: {required: true, description: ISO-4217 code}
+  direction: {required: true, description: DEBIT or CREDIT}
+  merchant_category: {required: true}
+  country: {required: true, description: ISO-3166 alpha-2}
+  channel: {required: true}
+  ingested_at: {required: true, description: Landing timestamp}

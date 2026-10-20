@@ -1,0 +1,9 @@
+dataset: accounts
+owner: core-banking
+version: 1.0.0
+columns:
+  account_id: {required: true}
+  customer_id: {required: true}
+  account_type: {required: true}
+  opened_date: {required: true}
+  ingested_at: {required: true}

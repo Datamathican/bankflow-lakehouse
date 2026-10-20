@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: Typed customers with tokenised PII.
+    columns:
+      - name: customer_id
+        tests: [unique, not_null]
+      - name: email_hash
+        tests: [not_null]
+      - name: segment
+        tests:
+          - accepted_values:
+              values: [RETAIL, PREMIER, SME]
+
+  - name: stg_accounts
+    columns:
+      - name: account_id
+        tests: [unique, not_null]
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships: {to: ref('stg_customers'), field: customer_id}
+
+  - name: stg_transactions
+    description: Deduplicated, validated, GBP-normalised transactions.
+    columns:
+      - name: txn_id
+        tests: [unique, not_null]
+      - name: account_id
+        tests:
+          - not_null
+          - relationships: {to: ref('stg_accounts'), field: account_id}
+      - name: amount_gbp
+        tests: [not_null]
+      - name: direction
+        tests:
+          - accepted_values: {values: [DEBIT, CREDIT]}
+
+  - name: quarantine_transactions
+    columns:
+      - name: reject_reason
+        tests:
+          - not_null
+          - accepted_values:
+              values: [INVALID_TIMESTAMP, NULL_AMOUNT, NON_POSITIVE_AMOUNT, UNSUPPORTED_CURRENCY, ORPHAN_ACCOUNT]
+
+  - name: fct_fraud_signals
+    columns:
+      - name: txn_id
+        tests: [unique, not_null]
+      - name: severity
+        tests:
+          - accepted_values: {values: [NONE, MEDIUM, HIGH]}
+
+  - name: dim_customer_360
+    columns:
+      - name: customer_id
+        tests: [unique, not_null]
+      - name: risk_tier
+        tests:
+          - accepted_values: {values: [NORMAL, ELEVATED, HIGH]}
